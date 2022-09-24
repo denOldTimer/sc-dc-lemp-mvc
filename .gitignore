@@ -1,0 +1,22 @@
+###> php-storm ###
+.idea/*
+###< php-storm  ###
+
+###> vscode ###
+.vscode/*
+###< vscode ###
+
+###> mysql ###
+/mysql/*
+###< mysql ###
+
+
+###> npm ###
+/node_modules/*
+package-lock.json
+###< npm ###
+
+###> yarn ###
+yarn-error.log
+yarn.lock
+###< yarn ###

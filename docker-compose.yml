@@ -1,0 +1,67 @@
+version: "3"
+
+networks:
+  scnet:
+
+services:
+  #nginx
+  scnginx:
+    container_name: scnginx
+    image: nginx:stable-alpine
+    restart: always
+    ports:
+      - "127.0.0.1:9080:80"
+    volumes:
+      - ./project:/var/www/project
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    networks:
+      - scnet
+
+
+  # #php
+  scphp:
+    container_name: scphp
+    build: 
+      context: .
+      dockerfile: ./php/Dockerfile
+    restart: always
+    ports:
+      - "127.0.0.1:9000:9000"
+    volumes:
+      - ./project:/var/www/project
+    networks:
+      - scnet
+
+
+  # #db
+  scdb:
+    container_name: scdb
+    platform: linux/x86_64
+    image: mysql:8
+    ports:
+      - "127.0.0.1:9306:3306"
+    volumes:
+      - mysql:/var/lib/mysql
+    restart: always # always restart unless stopped manually
+    environment:
+      MYSQL_DATABASE: project
+      MYSQL_ROOT_PASSWORD: secret
+    networks:
+      - scnet
+    
+
+  # node
+  scnode:
+    container_name: scnode
+    image: node:latest    
+    volumes:
+      - ./project:/var/www/project
+    working_dir: /var/www/project
+    networks:
+      - scnet
+
+volumes:
+  mysql:
+    driver: local
+
+
