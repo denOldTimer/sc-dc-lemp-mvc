@@ -2,7 +2,7 @@
 ![image](https://github.com/denOldTimer/sc-dc-lemp/blob/master/docker-lemp.jpg)
 
 
-# Docker-compose LEMP stack
+# Docker-compose LEMP stack with MVC structure
  
 ## nginx - php - mysql - node
 
